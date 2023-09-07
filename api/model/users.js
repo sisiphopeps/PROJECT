@@ -108,7 +108,7 @@ class Users {
       data.userPass = hashSync(data.userPass, 15);
     }
     const query = `
-        UPDATE Users
+        UPDATE users
         SET ?
         WHERE userID = ?
         `;
@@ -116,7 +116,7 @@ class Users {
       if (err) throw err;
       res.json({
         status: res.statusCode,
-        msg: "The user record was updated.",
+        msg: "Update successful.",
       });
     });
   }
@@ -128,7 +128,7 @@ class Users {
       if (err) throw err;
       res.json({
         status: res.statusCode,
-        msg: "A user record was deleted.",
+        msg: "Deleted successfully.",
       });
     });
   }  

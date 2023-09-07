@@ -1,68 +1,79 @@
 const db = require("../config/index");
 
-const getProducts = (result) => {
-    db.query("SELECT * FROM Products", (err, results) => {
-        if(err) {
-            console.log(err);
-            result(err, null);
-        } else {
-            result(null, results);
-        }
-    });
-};
-
-const getProductById = (id, result) => {
-    db.query("SELECT * FROM Products WHERE ProdID = ?", [id], (err, results) => {
-        if(err) {
-            console.log(err);
-            result(err, null);
-        } else {
-            result(null, results[0]);
-        }
-    });
-};
-
-const insertProduct = (data, result) => {
-    db.query("INSERT INTO Products (ProdID, ProdName, Price, Quantity, Category, ProdUrl) VALUES (?, ?, ?, ?, ?, ?)",
-        [data.ProdID, data.ProdName, data.Price, data.Quantity, data.Category, data.ProdUrl],
-        (err, results) => {
+class Products {
+    constructor() {      
+    }
+    getProducts(req, res) {
+        const query = `
+        SELECT ProdID, ProdName,Price, Quantity,Category, ProdUrl
+        FROM Products;
+        `
+        db.query(query, (err, results) => {
             if(err) {
-                console.log(err);
-                result(err, null);
+                throw err
             } else {
-                result(null, results);
+                res.json({  status: res.statusCode, results  });
             }
-        });
-};
-
-const updateProductById = (data, id, result) => {
-    db.query("UPDATE Products SET ProdName = ?, Price = ?, Quantity = ?, Category = ?, ProdUrl = ? WHERE ProdID = ?",
-        [data.ProdName, data.Price, data.Quantity, data.Category, data.ProdUrl, id],
-        (err, results) => {
+        })
+    }
+    // Get a single product
+    getProduct(req, res) {
+        const query = `
+        SELECT  ProdID, ProdName,Price, Quantity,Category, ProdUrl
+        FROM Products
+        WHERE ProdID = ${req.params.id};
+        `
+        db.query(query, (err, result) => {
+            if (err) {
+                throw err
+            } else {
+                res.json({ status: res.statusCode, result });
+            }
+        })
+    }
+    // Add a product
+    addProduct(req, res) {
+        const data = req.body
+        const query = `
+        INSERT INTO Products
+        SET ?;
+        `
+        db.query(query,[data], (err) => {
             if(err) {
-                console.log(err);
-                result(err, null);
+                throw err
             } else {
-                result(null, results);
+                res.json({ status: res.statusCode, msg: "Product added!" })
             }
-        });
-};
-
-const deleteProductById = (id, result) => {
-    db.query("DELETE FROM Products WHERE ProdID = ?", [id], (err, results) => {
-        if(err) {
-            console.log(err);
-            result(err, null);
-        } else {
-            result(null, results);
-        }
-    });
-};
-
-module.exports = {
-    getProducts,
-    getProductById,
-    insertProduct,
-    updateProductById,
-    deleteProductById
-};
+        })
+    }
+    // Update and or edit a single product
+    updateProduct(req, res) {
+        const query = `
+        UPDATE Products
+        SET ?
+        WHERE ProdID = ?
+        `
+        db.query(query, [req.body, req.params.id], (err) => {
+                if(err) {
+                    throw err
+                } else {
+                    res.json({ status: res.statusCode, msg: "Product updated!" })
+            }
+        })
+    }
+    // Delete a product
+    deleteProduct(req, res) {
+        const query = `
+        DELETE FROM Products
+        WHERE ProdID = ${req.params.id};
+        `
+        db.query(query, (err) => {
+            if(err) {
+                throw err
+            } else {
+                res.json({ status: res.statusCode, msg: "Product deleted!" })
+            }
+        })
+    }
+}
+module.exports = Products;
