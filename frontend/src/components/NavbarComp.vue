@@ -21,6 +21,10 @@
               <router-link class="nav-link" to="/login">LOGIN</router-link>
 
               <router-link class="nav-link" to="/wishlist">WISHLIST</router-link>
+            
+             
+
+              
             </div>
           </div>
         </div>
@@ -42,5 +46,9 @@
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.btns{
+ margin-left: 80%;
 }
 </style>
