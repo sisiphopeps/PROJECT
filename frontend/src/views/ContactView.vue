@@ -26,7 +26,6 @@
     <label>Message:</label><br>
     <textarea name="message" class="textarea-field" placeholder="Please type your message" required="message"   oninvalid="this.setCustomValidity('Please Enter Your Message')"
     oninput="this.setCustomValidity('')"></textarea><br>
-    <!-- your other form fields go here -->
     <button type="submit" class="submit-button">Send</button>
     </form>
     </div> 

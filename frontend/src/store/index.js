@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-const capstone = "https://capstone-mp0y.onrender.com/";
+const capstone = "https://capstone-92p2.onrender.com";
 
 export default createStore({
   state: {
@@ -31,7 +31,7 @@ export default createStore({
     setToken(state, token){
       state.token = token
     },
-    setmsg(state, msg){
+    setMsg(state, msg){
       state.msg = msg
     },
     setDeletionStatus(state, status) {
@@ -42,14 +42,16 @@ export default createStore({
   actions: {
    
     async fetchProducts(context) {
-      try{
-        const {data} = await axios.get(`${capstone}products`)
-        context.commit("setProducts", data.results)
-        console.log(data.results);
-      }catch(e){
-        context.commit("setMsg", "An error occured.")
+      try {
+        const { data } = await axios.get(`${capstone}/products`);
+        context.commit("setProducts", data.results);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        context.commit("setMsg", "An error occurred while fetching products.");
       }
     },
+    
+    
     async fetchProduct(context, prodID) {
       try {
         const { data } = await axios.get(`${capstone}products/${prodID}`);
@@ -67,7 +69,7 @@ export default createStore({
       try {
         context.commit("setDeletionStatus", null);
         
-        const response = await axios.delete(`${fullStackEOMPUrl}products/${prodID}`);
+        const response = await axios.delete(`${capstone}products/${prodID}`);
         
         if (response.status !== 200) {
           throw new Error(`Failed to delete product. Status: ${response.status}`);
@@ -82,7 +84,7 @@ export default createStore({
     },
      updateProduct(context, updatedData) {
       try {
-        const response = axios.put(`${fullStackEOMPUrl}products/${updatedData.prodID}`, updatedData);
+        const response = axios.put(`${capstone}products/${updatedData.prodID}`, updatedData);
         
         if (response.status !== 200) {
           throw new Error(`Failed to update product. Status: ${response.status}`);
