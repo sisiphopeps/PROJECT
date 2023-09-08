@@ -28,15 +28,15 @@ app.use((req, res, next) => {
     routes
 )
   // Handling all errors
-  app.use(ErrorHandling);
+  app.use(errorHandling);
   // Server
 
-routes.get('^/$|/challenger',(req, res)=>{
+routes.get('^/$|/Capstone',(req, res)=>{
     res.sendFile(path.resolve(__dirname,
         "./static/html/index.html"))
 })
 //Handling all errors using middleware
-app.use(ErrorHandling)
+app.use(errorHandling)
 app.listen(port, ()=>{
     console.log(`The server is running on port ${port}`);
 })
