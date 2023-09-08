@@ -28,7 +28,7 @@ app.use((req, res, next) => {
     routes
 )
   // Handling all errors
-  app.use(errorHandling);
+  app.use(ErrorHandling);
   // Server
 
 routes.get('^/$|/Capstone',(req, res)=>{
@@ -36,7 +36,7 @@ routes.get('^/$|/Capstone',(req, res)=>{
         "./static/html/index.html"))
 })
 //Handling all errors using middleware
-app.use(errorHandling)
+app.use(ErrorHandling)
 app.listen(port, ()=>{
     console.log(`The server is running on port ${port}`);
 })
