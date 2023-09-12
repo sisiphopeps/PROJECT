@@ -10,14 +10,14 @@ routes.get('/users', (req, res)=>{
 })
 routes.get('/users/:id', (req, res)=>{
     users.fetchUser(req, res)
-})
+}) 
 routes.post('/register',bodyParser.json(),
 (req, res)=>{
     users.register(req, res)
 })
 routes.put('/user/:id', bodyParser.json(),
  (req, res)=>{
-    users.updateUser(req,res)
+    users.updateUser( req,res)
 })
 routes.patch('/user/:id', bodyParser.json(),
  (req, res)=>{
@@ -29,7 +29,7 @@ routes.delete('/user/:id', (req, res)=>{
 routes.post('/login',bodyParser.json(),
  (req, res)=>{
     users.login(req, res)
-})
+}) 
 
 //products router
 routes.get('/products', (req, res) => {
