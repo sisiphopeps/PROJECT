@@ -43,7 +43,14 @@ component: ()=>import('../views/loginView.vue')
   path: '/wishlist',
   name: 'wishlist',
   component: ()=>import('../views/WishlistView.vue')
+}, 
+{
+  
+  path: '/register',
+  name: 'register',
+  component:()=>import('../views/registerView.vue')
 }
+
  
 ]
 

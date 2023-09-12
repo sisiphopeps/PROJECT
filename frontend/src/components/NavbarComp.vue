@@ -11,6 +11,7 @@
             <router-link class="nav-link" to="/">HOME</router-link>
             <router-link class="nav-link" to="/about">ABOUT</router-link>
             <router-link class="nav-link" to="/products">PRODUCTS</router-link>
+            <router-link class="nav-link" to="/admin">ADMIN</router-link>
             <router-link class="nav-link" to="/contact">CONTACT</router-link>
             <router-link class="nav-link" to="/wishlist">WISHLIST</router-link>
             <router-link class="nav-link" to="/login">LOGIN</router-link>

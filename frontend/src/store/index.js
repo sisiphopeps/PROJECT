@@ -6,9 +6,13 @@ export default createStore({
   state: {
     products: null,
     product: null,
+    users: null,
+    user: null,
     spinner: false,
     token: null,
-    msg: null
+    msg: null,
+    cart: [],
+    sortBy: "",
   },
   getters: {
   },
@@ -37,7 +41,10 @@ export default createStore({
     setDeletionStatus(state, status) {
       state.deletionStatus = status;
     },
-   
+    setCart(state, cart) {
+    state.cart = cart;
+  },
+ 
   },
   actions: {
    
@@ -62,9 +69,6 @@ export default createStore({
       }
     },
 
-     
-      
-  
     async deleteProduct(context, prodID) {
       try {
         context.commit("setDeletionStatus", null);
@@ -95,6 +99,40 @@ export default createStore({
       } catch (error) {
         console.error("Error editing product:", error);
         context.commit("setEditStatus", "error");
+      }
+    },
+
+    addToCart(state, product) {
+      const existingProduct = state.cart.find(
+        (item) => item.prodID === product.prodID
+      );
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        product.quantity = 1;
+        state.cart.push(product);
+      }
+    },
+    updateCartItemQuantity(state, { prodID, prodQUANTITY }) {
+      const cartItem = state.cart.find((item) => item.prodID === prodID);
+      if (cartItem) {
+        cartItem.quantity = prodQUANTITY;
+      }
+    },
+    removeItem(state, cartID) {
+      const index = state.cart.findIndex((item) => item.cartID === cartID);
+      if (index !== -1) {
+        state.cart.splice(index, 1);
+      }
+    },
+
+    async fetchUsers(context) {3
+      try{
+        const {data} = await axios.get(`${capstone }users`)
+        context.commit("setUsers", data.results)
+        console.log(data.results);
+      }catch(e){
+        context.commit("setMsg", "An error occured.")
       }
     },
  
