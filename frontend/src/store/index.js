@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-const capstone = "https://capstone-92p2.onrender.com";
+const capstone = "https://capstone-92p2.onrender.com/";
 
 export default createStore({
   state: {
@@ -62,18 +62,28 @@ export default createStore({
    
     async fetchProducts(context) {
       try {
-        const { data } = await axios.get(`${capstone}/products`);
+        const { data } = await axios.get(`${capstone}products`);
         context.commit("setProducts", data.results);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching users:", error);
         context.commit("setMsg", "An error occurred while fetching products.");
+      }
+    },
+
+    async fetchUsers(context) {
+      try {
+        const { data } = await axios.get(`${capstone}users`);
+        context.commit("setUsers", data.results);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        context.commit("setMsg", "An error occurred while fetching users.");
       }
     },
     
     
     async fetchProduct(context, prodID) {
       try {
-        const { data } = await axios.get(`${capstone}/products/${prodID}`);
+        const { data } = await axios.get(`${capstone}products/${prodID}`);
         context.commit("setProduct", data.result[0]);
         console.log(data.result);
       } catch (e) {
@@ -83,7 +93,7 @@ export default createStore({
 
     async addNewProduct(context, newProduct) {
       try {
-        const response = await axios.post(`${capstone}/add-product`, newProduct);
+        const response = await axios.post(`${capstone}add-product`, newProduct);
         if (response.status === 201) {
           context.commit('addProduct', newProduct);
         }
@@ -94,7 +104,7 @@ export default createStore({
 
     async addNewUser(context, newUser) {
       try {
-        const response = await axios.post(`${connection}register`, newUser);
+        const response = await axios.post(`${capstone}register`, newUser);
         if (response.status === 201) {
           context.commit('addUser', newUser);
         }
@@ -105,7 +115,7 @@ export default createStore({
 
     async deleteProduct(context, productId) {
       try {
-        const response = await fetch(`${capstone}/products/${productId}`, {
+        const response = await fetch(`${capstone}products/${productId}`, {
           method: 'DELETE',
         });
   
@@ -175,15 +185,15 @@ export default createStore({
       }
     },
 
-    async fetchUsers(context) {3
-      try{
-        const {data} = await axios.get(`${capstone }/users`)
-        context.commit("setUsers", data.results)
-        console.log(data.results);
-      }catch(e){
-        context.commit("setMsg", "An error occured.")
-      }
-    },
+    // async fetchUsers(context) {3
+    //   try{
+    //     const {data} = await axios.get(`${capstone }/users`)
+    //     context.commit("setUsers", data.results)
+    //     console.log(data.results);
+    //   }catch(e){
+    //     context.commit("setMsg", "An error occured.")
+    //   }
+    // },
  
 }, 
 modules: {
