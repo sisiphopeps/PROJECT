@@ -41,6 +41,18 @@ export default createStore({
     setDeletionStatus(state, status) {
       state.deletionStatus = status;
     },
+    addProduct(state, newProduct) {
+      state.products.push(newProduct);
+    },
+    addUser(state, newUser) {
+      state.users.push(newUser);
+    },
+    deleteProduct(state, productId) {
+      state.products = state.products.filter(product => product.ProdID !== productId)
+    },
+    deleteUser(state, userId) {
+      state.users = state.users.filter(user => user.userID !== userId)
+    },
     setCart(state, cart) {
     state.cart = cart;
   },
@@ -61,7 +73,7 @@ export default createStore({
     
     async fetchProduct(context, prodID) {
       try {
-        const { data } = await axios.get(`${capstone}products/${prodID}`);
+        const { data } = await axios.get(`${capstone}/products/${prodID}`);
         context.commit("setProduct", data.result[0]);
         console.log(data.result);
       } catch (e) {
@@ -69,23 +81,60 @@ export default createStore({
       }
     },
 
-    async deleteProduct(context, prodID) {
+    async addNewProduct(context, newProduct) {
       try {
-        context.commit("setDeletionStatus", null);
-        
-        const response = await axios.delete(`${capstone}products/${prodID}`);
-        
-        if (response.status !== 200) {
-          throw new Error(`Failed to delete product. Status: ${response.status}`);
+        const response = await axios.post(`${capstone}/add-product`, newProduct);
+        if (response.status === 201) {
+          context.commit('addProduct', newProduct);
         }
-        
-        context.commit("removeProduct", prodID);
-        context.commit("setDeletionStatus", "success");
       } catch (error) {
-        console.error("Error deleting product:", error);
-        context.commit("setDeletionStatus", "error");
+        console.error('Error adding new product:', error);
       }
     },
+
+    async addNewUser(context, newUser) {
+      try {
+        const response = await axios.post(`${connection}register`, newUser);
+        if (response.status === 201) {
+          context.commit('addUser', newUser);
+        }
+      } catch (error) {
+        console.error('Error adding new user:', error);
+      }
+    },
+
+    async deleteProduct(context, productId) {
+      try {
+        const response = await fetch(`${capstone}/products/${productId}`, {
+          method: 'DELETE',
+        });
+  
+        if (response.ok) {
+          context.commit('deleteProduct', productId);
+        } else {
+          throw new Error('Failed to delete product');
+        }
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
+    },
+
+    async deleteUser(context, userId) {
+      try {
+        const response = await fetch(`${connection}user/${userId}`, {
+          method: 'DELETE',
+        });
+  
+        if (response.ok) {
+          context.commit('deleteUser',userId);
+        } else {
+          throw new Error('Failed to delete user');
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    },
+
      updateProduct(context, updatedData) {
       try {
         const response = axios.put(`${capstone}products/${updatedData.prodID}`, updatedData);
@@ -128,7 +177,7 @@ export default createStore({
 
     async fetchUsers(context) {3
       try{
-        const {data} = await axios.get(`${capstone }users`)
+        const {data} = await axios.get(`${capstone }/users`)
         context.commit("setUsers", data.results)
         console.log(data.results);
       }catch(e){
