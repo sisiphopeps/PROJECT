@@ -40,16 +40,29 @@ component: ()=>import('../views/loginView.vue')
 },
 
 {
-  path: '/wishlist',
-  name: 'wishlist',
-  component: ()=>import('../views/WishlistView.vue')
+  path: '/checkout',
+  name: 'checkout',
+  component: ()=>import('../views/CheckoutView.vue')
 }, 
 {
   
   path: '/register',
   name: 'register',
   component:()=>import('../views/registerView.vue')
+},
+{ 
+path: '/product/:prodID',
+name: 'product',
+component:()=>import('../views/SingleView.vue')
+},
+{
+  
+  path: '/profile',
+  name: 'profile',
+  component:()=>import('../views/UserProfile.vue')
 }
+
+
 
  
 ]

@@ -1,24 +1,24 @@
 <template>
     <div>
       <div v-if="product" class="single-product">
-        <img :src="product.prodIMG" :alt="product.prodNAME" />
+        <img :src="product.prodUrl" :alt="product.prodName" />
         <div class="product-details">
-          <h2>{{ product.prodNAME }}</h2>
-          <p>Price: R {{ product.prodPRICE }}.00</p>
-          <p>Category: {{ product.prodCAT }}</p>
+          <h2>{{ product.prodName }}</h2>
+          <p>Price: R {{ product.Price }}.00</p>
+          <p>Category: {{ product.Category}}</p>
         </div>
         <button @click="addToCartProduct" class="btn btn-primary">
           Add to Cart
         </button>
-        <input v-model="quantity" type="number" min="1" placeholder="Quantity" />
+       
       </div>
       <div v-else><Spinner /></div>
       <cart :cart-items="cart"> </cart>
     </div>
   </template>
   <script>
-  import Swal from "sweetalert2";
-  import Spinner from "./Spinner.vue";
+  // import Swal from "sweetalert2";
+  // import Spinner from "./Spinner.vue";
   export default {
     components: { Spinner },
     data() {

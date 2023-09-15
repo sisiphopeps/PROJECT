@@ -1,6 +1,9 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
+import Swal from 'sweetalert2';
+import { useCookies } from 'vue3-cookies';
 const capstone = "https://capstone-92p2.onrender.com/";
+
 
 export default createStore({
   state: {
@@ -56,6 +59,10 @@ export default createStore({
     setCart(state, cart) {
     state.cart = cart;
   },
+
+  addProductToCart(state, product) {
+    state.cart.push(cartID);
+  },
  
   },
   actions: {
@@ -79,7 +86,6 @@ export default createStore({
         context.commit("setMsg", "An error occurred while fetching users.");
       }
     },
-    
     
     async fetchProduct(context, prodID) {
       try {
@@ -161,41 +167,37 @@ export default createStore({
       }
     },
 
-    addToCart(state, product) {
-      const existingProduct = state.cart.find(
-        (item) => item.prodID === product.prodID
-      );
-      if (existingProduct) {
-        existingProduct.quantity += 1;
-      } else {
-        product.quantity = 1;
-        state.cart.push(product);
-      }
-    },
-    updateCartItemQuantity(state, { prodID, prodQUANTITY }) {
-      const cartItem = state.cart.find((item) => item.prodID === prodID);
-      if (cartItem) {
-        cartItem.quantity = prodQUANTITY;
-      }
-    },
-    removeItem(state, cartID) {
-      const index = state.cart.findIndex((item) => item.cartID === cartID);
-      if (index !== -1) {
-        state.cart.splice(index, 1);
+    async login(context, payload) {
+      try {
+        const response = await axios.post(`${capstone }login`, payload);
+        const { msg, token, results } = response.data;
+        if (results) {
+          context.commit("setToken", token);
+          context.commit("setUser", { results, msg });
+          cookies.set("LegitUser", { token, msg, results });
+          Swal.fire({
+            title: msg,
+            icon: "success",
+            text: `Welcome back ${results?.userName}`,
+            timer: 3000,
+          });
+          router.push({ name: "home" });
+        }
+      } catch (error) {
+        console.log("clicked");
+        const msg =
+          error.response?.data?.msg || "An error occurred during login";
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: msg,
+          timer: 3000,
+        });
       }
     },
 
-    // async fetchUsers(context) {3
-    //   try{
-    //     const {data} = await axios.get(`${capstone }/users`)
-    //     context.commit("setUsers", data.results)
-    //     console.log(data.results);
-    //   }catch(e){
-    //     context.commit("setMsg", "An error occured.")
-    //   }
-    // },
- 
-}, 
+  },
+
 modules: {
 },
 })

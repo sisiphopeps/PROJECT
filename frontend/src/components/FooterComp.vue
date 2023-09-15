@@ -99,6 +99,13 @@
         </div>
         </section>
     </div>
+
+     <!-- Copyright -->
+  <div class="text-center p-4">
+    © 2023 Copyright: Sisipho Pepengweni
+   
+  </div>
+  <!-- Copyright -->
     </footer>
     </div>
 </template>

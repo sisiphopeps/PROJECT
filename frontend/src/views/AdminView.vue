@@ -1,10 +1,9 @@
 <template>
     <div>
-     
       <UpdateProd :products="products"/>
       <AddProduct @productAdded="fetchProducts"/>
       <div>
-        
+        <div class="table-container">
         <table class="table">
           <thead>
             <tr>
@@ -46,7 +45,7 @@
           </tbody>
         </table>
         
-        
+      
         <table class="table">
           <thead>
             <tr>
@@ -94,6 +93,7 @@
       
     </div>
     </div>
+    </div>
   </template>
   
   <script>
@@ -139,6 +139,39 @@
   </script>
   
   <style scoped>
+
+  .table img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+  }
+  
+  /* Responsive styles for small screens */
+  @media screen and (max-width: 768px) {
+    .table-container {
+      overflow-x: auto;
+    }
+    .table {
+      width: 100%;
+    }
+    .table th,
+    .table td {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  /* Additional responsive styles as needed */
+  @media screen and (max-width: 480px) {
+    /* Add specific styles for smaller screens here */
+  }
   /* Style for product images */
   .table img {
     max-width: 100px;

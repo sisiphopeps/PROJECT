@@ -12,7 +12,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Handbag</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Handbag</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Handbag</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Watch</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Watch</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Watch</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a href="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div> 
       </div>
@@ -78,7 +78,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Sunglasses</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
@@ -89,7 +89,7 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Sunglasses</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
@@ -100,13 +100,13 @@
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text ">Sunglasses</p>
-            <a href="#" class="btn btn-primary">Add to wishlist</a>
+            <a to="/cart" class="btn btn-primary">Add to wishlist</a>
           </div>
         </div>
       </div>
 
     </div>
-    <button class="submit-button">Shop more</button>
+    <router-link class="btns" to="/products">PRODUCTS</router-link>
     
   </div>
 </template>
@@ -131,7 +131,7 @@ justify-content: center;
 height:300px;
 }
 
-button{
+.btns{
   color: #fff;
     background-color:pink;
     transition: all 0.3s ease;
@@ -144,5 +144,6 @@ button{
     width: 200px;
     margin-left: 10px;
     margin-bottom: 10px;
+    text-decoration: none;
 }
 </style>

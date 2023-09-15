@@ -7,10 +7,10 @@
             <img class="image" :src="product.prodUrl" :alt="product.prodName" />
           </div>
           <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">
-            <p class="fs-4">{{ product.prodName}}</p>
+            <p class="fs-4">{{ product.prodName }}</p>
             <div class="card-body m-2">
-              <p>{{ product.Category}}</p>
-              <p>R {{ product.Price}}</p>
+              <p>{{ product.Category }}</p>
+              <p>R {{ product.Price }}</p>
               <button @click="addToCart(product)">Add to Cart</button>
             </div>
           </div>
@@ -28,19 +28,20 @@
       product() {
         return this.$store.state.product
       },
-      id() {
-        return this.$route.params.id
-      },
+      // id() {
+      //   return this.$route.params.id
+      // },
       userData() {
       return this.$store.state.userData;
     },
     },
     mounted() {
-      this.$store.dispatch("getProduct", this.id)
+      const prodID = this.$route.params.prodID;
+      this.$store.dispatch("fetchProduct", prodID)
     },
   }
-
   </script>
 
 <style scoped>
+
 </style>
